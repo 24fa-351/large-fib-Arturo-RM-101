@@ -3,37 +3,40 @@
 #include <stdlib.h>
 
 // Iterates the function by N placed into int X
-// Variables are set to keep track of current and previous numbers to allow Fibonacci
-unsigned long long int Iterate_Function(int Nth) {
-   unsigned long long int Prev_Num = 0;
-   unsigned long long int Save_Num = 0;
-   unsigned long long int Curr_Num = 1;
+unsigned long long int Iterate_Function(int fib_num) {
 
-   if(Nth == 0) {
-      return Prev_Num;
+   unsigned long long int prev_num = 0;
+   unsigned long long int save_num = 0;
+   unsigned long long int curr_num = 1;
+
+   if(fib_num == 0) {
+      return prev_num;
    }
-   for(int i = 2; i <= Nth; i++) {
-      Save_Num = Prev_Num + Curr_Num;
-      Prev_Num = Curr_Num;
-      Curr_Num = Save_Num;
+
+   for(int ix = 2; ix <= fib_num; ix++) {
+      save_num = prev_num + curr_num;
+      prev_num = curr_num;
+      curr_num = save_num;
    }
-   return Save_Num;
+   return save_num;
+
 }
 
 // Recursive function that has N placed into X along with other variables mentioned in main respectively
-// Variables prevNum, saveNum, and currNum are used the same as iterative
-unsigned long long int Recursive_Function(int Nth) {
-   if(Nth <= 1) {
-      return Nth;
+unsigned long long int Recursive_Function(int fib_num) {
+
+   if(fib_num <= 1) {
+      return fib_num;
    } else {
-      return Recursive_Function(Nth - 1) + Recursive_Function(Nth - 2);
+      return Recursive_Function(fib_num - 1) + Recursive_Function(fib_num - 2);
    }
+
 }
 
 // Main paramaters are utilized to grab command line string to be used through this part
 int main(int argc, char* argv[]) {
 
-   // Commented lines for purposes of passing tests
+   // Commented lines for purposes of passing tests but still work
 
    /*//FILE is used and as a pointer to indicate the usage of the data stored with file
    FILE* file;
@@ -52,15 +55,18 @@ int main(int argc, char* argv[]) {
    }*/
 
    // Both the user command line and the text file numbers are added together
-   unsigned long long int Nth = atoi(argv[1]);
+   unsigned long long int fib_num = atoi(argv[1]);
+   
    // + textNum;
    // N is subtracted by 1 as a required thing in Fibonacci sequencing
-   Nth -= 1;
+   fib_num -= 1;
 
    if(strcmp(argv[2], "i") == 0) {
-      printf("%llu\n", Iterate_Function(Nth)); 
+      printf("%llu\n", Iterate_Function(fib_num)); 
    } else if(strcmp(argv[2], "r") == 0) {
-      printf("%llu\n", Recursive_Function(Nth));
+      printf("%llu\n", Recursive_Function(fib_num));
    }
+
    return 0;
+
 }
